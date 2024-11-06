@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "351823736744",
+    "firebase_url": "https://customer-data-base-13fab-default-rtdb.firebaseio.com",
+    "project_id": "customer-data-base-13fab",
+    "storage_bucket": "customer-data-base-13fab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351823736744:android:505556b59aed7aa9faf79d",
+        "android_client_info": {
+          "package_name": "com.example.customer_transpoition"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPbNK7wmjCAM-dYlF5ZgYt614aN3ss6fo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351823736744:android:2d6f49a66bfe87f0faf79d",
+        "android_client_info": {
+          "package_name": "com.example.driver_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPbNK7wmjCAM-dYlF5ZgYt614aN3ss6fo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -41,6 +41,9 @@ dependencies:
   flutter_map: ^6.1.0
   webview_flutter: ^4.5.0
   flutter_rating: ^2.0.2
+  geolocator: ^11.1.0
+  firebase_core: ^2.24.2
+  firebase_database: ^10.4.0
 
 dev_dependencies:
   flutter_test:

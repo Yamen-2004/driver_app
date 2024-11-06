@@ -1,7 +1,9 @@
 import 'package:driver_application/shortCiut/buttom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:async';
+import 'package:latlong2/latlong.dart' as latlong;
+import 'package:geolocator/geolocator.dart';
 
 class MapSample extends StatefulWidget {
   @override
@@ -9,7 +11,28 @@ class MapSample extends StatefulWidget {
 }
 
 class _MapSample extends State<MapSample> {
+  late BitmapDescriptor Myicon;
+
+  @override
+  void initState() {
+    super.initState();
+    customIcon();
+  }
+
+  Future<void> customIcon() async {
+    final icon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(0, 0)), 'assets/images/bus.png' );
+
+    setState(() {
+      Myicon = icon;
+    });
+  }
+
   bool value = false;
+
+  
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,19 +65,25 @@ class _MapSample extends State<MapSample> {
           children: [
             Opacity(
               opacity: value ? 1 : 0.2,
-              child: FlutterMap(
-                mapController: MapController(),
-                options: MapOptions(
-                  center: LatLng(31.9454, 35.9284),
-                  zoom: 13.0,
+              child: GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: const CameraPosition(
+                  target: LatLng(31.9454, 35.9284),
+                  zoom: 14.4746,
                 ),
-                children: [
-                  TileLayer(
-                    urlTemplate:
-                        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                    subdomains: ['a', 'b', 'c'],
-                  )
-                ],
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+                markers: {
+                  Marker(
+                    markerId: MarkerId("1"),
+                    position: LatLng(31.9454, 35.9284),
+                    infoWindow: InfoWindow(title: "موقع الحافلة"),
+                    icon: Myicon,
+                    onTap: () => print("Marker Tapped"),
+                    
+                  ),
+                },
               ),
             ),
             Positioned(
@@ -73,3 +102,5 @@ class _MapSample extends State<MapSample> {
         ));
   }
 }
+
+
