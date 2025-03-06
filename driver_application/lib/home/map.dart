@@ -12,25 +12,15 @@ class MapSample extends StatefulWidget {
 
 class _MapSample extends State<MapSample> {
   late BitmapDescriptor Myicon;
+  List<Marker> allMarkers = [Marker(markerId: MarkerId('marker1'))];
 
   @override
   void initState() {
     super.initState();
-    customIcon();
-  }
-
-  Future<void> customIcon() async {
-    final icon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(0, 0)), 'assets/images/bus.png' );
-
-    setState(() {
-      Myicon = icon;
-    });
   }
 
   bool value = false;
 
-  
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   @override
@@ -64,37 +54,41 @@ class _MapSample extends State<MapSample> {
         body: Stack(
           children: [
             Opacity(
-              opacity: value ? 1 : 0.2,
+              opacity: value ? 1 : 0.3,
               child: GoogleMap(
-                mapType: MapType.normal,
-                initialCameraPosition: const CameraPosition(
-                  target: LatLng(31.9454, 35.9284),
-                  zoom: 14.4746,
-                ),
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-                markers: {
-                  Marker(
-                    markerId: MarkerId("1"),
-                    position: LatLng(31.9454, 35.9284),
-                    infoWindow: InfoWindow(title: "موقع الحافلة"),
-                    icon: Myicon,
-                    onTap: () => print("Marker Tapped"),
-                    
+                  mapType: MapType.normal,
+                  initialCameraPosition: const CameraPosition(
+                    target: LatLng(31.9454, 35.9284),
+                    zoom: 14.4746,
                   ),
-                },
-              ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  markers: {allMarkers[0]}),
             ),
             Positioned(
                 bottom: 10,
                 right: 10,
                 child: button(
-                    text: value ? "تعطيل الحافلة" : "تفعيل الحافلة",
+                    text: value ? "تعطيل الموقع" : "تفعيل الموقع",
                     onPressed: () {
-                      setState(() {
-                        value = !value;
-                      });
+                      if (value == false) {
+                        setState(() {
+                          allMarkers[0] = (Marker(
+                              markerId: MarkerId('marker1'),
+                              position: LatLng(31.9454, 35.9284),
+                              icon: BitmapDescriptor.defaultMarker,
+                              infoWindow: InfoWindow(title: "موقعك الحالي")           ));
+                          value = !value;
+                        });
+                      } else {
+                        setState(() {
+                          allMarkers[0] = (Marker(
+                            markerId: MarkerId('marker1'),
+                          ));
+                          value = !value;
+                        });
+                      }
                     },
                     color: Colors.black,
                     colortxt: Colors.white))
@@ -102,5 +96,3 @@ class _MapSample extends State<MapSample> {
         ));
   }
 }
-
-

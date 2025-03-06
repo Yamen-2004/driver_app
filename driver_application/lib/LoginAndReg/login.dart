@@ -40,7 +40,7 @@ class login extends StatelessWidget {
                           // navigate to forget password
                         },
                         child: const Text(
-                          "نسيت كلمة المرور؟",
+                          " يتم تزويدك  بكلمة المرور من قبل هيئة تنظيم النقل البري",
                           style: TextStyle(color: Colors.black),
                         ))),
                 const Spacer(),
@@ -53,14 +53,6 @@ class login extends StatelessWidget {
                   colortxt: Colors.white,
                 ),
                 const SizedBox(height: 10),
-                button(
-                  text: "تسجيل حساب جديد",
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/signup");
-                  },
-                  color: Colors.white,
-                  colortxt: Colors.black,
-                ),
                 const Spacer()
               ],
             ),
